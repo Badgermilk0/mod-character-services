@@ -33,6 +33,18 @@
 #        Default:     1 - Enabled
 #                     0 - Disabled
 #
+#    CharacterServices.ProgressionTier.Enable
+#        Description: Enable the progression tier purchase service
+#                    (Allows characters to purchase progression tiers up to the account's maximum achieved tier)
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+#    CharacterServices.ProgressionTier.MaxApplicableTier
+#        Description: Set the maximum tier level that can be purchased via the service
+#                    (Set to 0 to allow all tiers to be purchased up to the account's max)
+#        Default:     0 - No limit (use account's maximum tier)
+#                     1-16 - Specific maximum tier limit
+#
 
 CharacterServices.Enable = 1
 
@@ -40,27 +52,29 @@ CharacterServices.NameChange.Enable = 1
 CharacterServices.AppearanceChange.Enable = 1
 CharacterServices.RaceChange.Enable = 1
 CharacterServices.FactionChange.Enable = 1
+CharacterServices.ProgressionTier.Enable = 1
+CharacterServices.ProgressionTier.MaxApplicableTier = 0
 
 #
 #    CharacterServices.DynamicCost.Enable
-#        Description: Enables scaling cost for services based on the players level (player level / 80) * cost
+#        Description: Enables scaling cost for services based on the player's level (player level / 80) * cost
 #        Default:     1 - Enabled
 #                     0 - Disabled
 #
 #    CharacterServices.Cost.NameChange
-#        Description: The cost to change buy a name change in gold
+#        Description: The cost to purchase a name change in gold
 #        Default:     25
 #
 #    CharacterServices.Cost.AppearanceChange
-#        Description: The cost to change buy a appearance change in gold
+#        Description: The cost to purchase an appearance change in gold
 #        Default:     50
 #
 #    CharacterServices.Cost.RaceChange
-#        Description: The cost to change buy a race change in gold
+#        Description: The cost to purchase a race change in gold
 #        Default:     100
 #
 #    CharacterServices.Cost.FactionChange
-#        Description: The cost to change buy a faction change in gold
+#        Description: The cost to purchase a faction change in gold
 #        Default:     250
 #
 
@@ -71,3 +85,49 @@ CharacterServices.Cost.AppearanceChange = 50
 CharacterServices.Cost.RaceChange = 100
 CharacterServices.Cost.FactionChange = 250
 
+#
+#    CharacterServices.Cost.ProgressionTier.X
+#        Description: The cost to purchase specific progression tier X in gold
+#                    Note: These costs are per tier, not cumulative
+#
+#    Progression Tier Reference:
+#        PROGRESSION_START           = 0  (Starting state - no purchases available)
+#        PROGRESSION_MOLTEN_CORE     = 1  (Molten Core)
+#        PROGRESSION_ONYXIA          = 2  (Onyxia's Lair)
+#        PROGRESSION_BLACKWING_LAIR  = 3  (Blackwing Lair)
+#        PROGRESSION_PRE_AQ          = 4  (Pre-Ahn'Qiraj content)
+#        PROGRESSION_AQ              = 5  (Ahn'Qiraj)
+#        PROGRESSION_NAXX40          = 6  (Naxxramas - Vanilla)
+#        PROGRESSION_TBC_TIER_1      = 7  (Karazhan, Gruul's Lair, Magtheridon's Lair)
+#        PROGRESSION_TBC_TIER_2      = 8  (Serpentshrine Cavern, Tempest Keep)
+#        PROGRESSION_TBC_TIER_3      = 9  (Hyjal Summit, Black Temple)
+#        PROGRESSION_TBC_TIER_4      = 10 (Zul'Aman)
+#        PROGRESSION_TBC_TIER_5      = 11 (Sunwell Plateau)
+#        PROGRESSION_WOTLK_TIER_1    = 12 (Naxxramas, Eye of Eternity, Obsidian Sanctum)
+#        PROGRESSION_WOTLK_TIER_2    = 13 (Ulduar)
+#        PROGRESSION_WOTLK_TIER_3    = 14 (Trial of the Crusader)
+#        PROGRESSION_WOTLK_TIER_4    = 15 (Icecrown Citadel)
+#        PROGRESSION_WOTLK_TIER_5    = 16 (Ruby Sanctum)
+#
+
+# Vanilla progression costs
+CharacterServices.Cost.ProgressionTier.1 = 150   # Molten Core
+CharacterServices.Cost.ProgressionTier.2 = 200   # Onyxia
+CharacterServices.Cost.ProgressionTier.3 = 250   # Blackwing Lair
+CharacterServices.Cost.ProgressionTier.4 = 300   # Pre-AQ
+CharacterServices.Cost.ProgressionTier.5 = 350   # AQ
+CharacterServices.Cost.ProgressionTier.6 = 400   # Naxx40
+
+# TBC progression costs
+CharacterServices.Cost.ProgressionTier.7 = 450   # TBC Tier 1 (Karazhan, Gruul, Magtheridon)
+CharacterServices.Cost.ProgressionTier.8 = 500   # TBC Tier 2 (SSC, TK)
+CharacterServices.Cost.ProgressionTier.9 = 550   # TBC Tier 3 (Hyjal, BT)
+CharacterServices.Cost.ProgressionTier.10 = 600  # TBC Tier 4 (ZA)
+CharacterServices.Cost.ProgressionTier.11 = 650  # TBC Tier 5 (Sunwell)
+
+# WotLK progression costs
+CharacterServices.Cost.ProgressionTier.12 = 700  # WotLK Tier 1 (Naxx, EoE, OS)
+CharacterServices.Cost.ProgressionTier.13 = 750  # WotLK Tier 2 (Ulduar)
+CharacterServices.Cost.ProgressionTier.14 = 800  # WotLK Tier 3 (TotC)
+CharacterServices.Cost.ProgressionTier.15 = 850  # WotLK Tier 4 (ICC)
+CharacterServices.Cost.ProgressionTier.16 = 900  # WotLK Tier 5 (Ruby Sanctum)
