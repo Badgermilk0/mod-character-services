@@ -1,6 +1,10 @@
+**Modified to work with mod-individual-progression, the mod is required for this version to work.**
+
 # Character Services Module
 
 This module adds a npc that can be spawned in that you can talk to and purchase a name change, appearance change, race change, or faction change. Every service can be enabled and disabled via the config. You can set specific prices for the services and even enable dynamic cost scaling which adjust the price based on the players level.
+
+It enables you to purchase progression tiers up to the accounts max progressed tier.
 
 ## How to install
 
