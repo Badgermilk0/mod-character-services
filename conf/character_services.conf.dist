@@ -48,12 +48,12 @@
 
 CharacterServices.Enable = 1
 
-CharacterServices.NameChange.Enable = 1
-CharacterServices.AppearanceChange.Enable = 1
-CharacterServices.RaceChange.Enable = 1
-CharacterServices.FactionChange.Enable = 1
+CharacterServices.NameChange.Enable = 0
+CharacterServices.AppearanceChange.Enable = 0
+CharacterServices.RaceChange.Enable = 0
+CharacterServices.FactionChange.Enable = 0
 CharacterServices.ProgressionTier.Enable = 1
-CharacterServices.ProgressionTier.MaxApplicableTier = 0
+CharacterServices.ProgressionTier.MaxApplicableTier = 16
 
 #
 #    CharacterServices.DynamicCost.Enable
@@ -78,7 +78,7 @@ CharacterServices.ProgressionTier.MaxApplicableTier = 0
 #        Default:     250
 #
 
-CharacterServices.DynamicCost.Enable = 1
+CharacterServices.DynamicCost.Enable = 0
 
 CharacterServices.Cost.NameChange = 25
 CharacterServices.Cost.AppearanceChange = 50
@@ -111,23 +111,39 @@ CharacterServices.Cost.FactionChange = 250
 #
 
 # Vanilla progression costs
-CharacterServices.Cost.ProgressionTier.1 = 150   # Molten Core
-CharacterServices.Cost.ProgressionTier.2 = 200   # Onyxia
-CharacterServices.Cost.ProgressionTier.3 = 250   # Blackwing Lair
-CharacterServices.Cost.ProgressionTier.4 = 300   # Pre-AQ
-CharacterServices.Cost.ProgressionTier.5 = 350   # AQ
-CharacterServices.Cost.ProgressionTier.6 = 400   # Naxx40
+# Molten Core
+CharacterServices.Cost.ProgressionTier.1 = 150
+# Onyxia
+CharacterServices.Cost.ProgressionTier.2 = 200
+# Blackwing Lair
+CharacterServices.Cost.ProgressionTier.3 = 250
+# Pre-AQ
+CharacterServices.Cost.ProgressionTier.4 = 300
+# AQ
+CharacterServices.Cost.ProgressionTier.5 = 350
+# Naxx40
+CharacterServices.Cost.ProgressionTier.6 = 400
 
 # TBC progression costs
-CharacterServices.Cost.ProgressionTier.7 = 450   # TBC Tier 1 (Karazhan, Gruul, Magtheridon)
-CharacterServices.Cost.ProgressionTier.8 = 500   # TBC Tier 2 (SSC, TK)
-CharacterServices.Cost.ProgressionTier.9 = 550   # TBC Tier 3 (Hyjal, BT)
-CharacterServices.Cost.ProgressionTier.10 = 600  # TBC Tier 4 (ZA)
-CharacterServices.Cost.ProgressionTier.11 = 650  # TBC Tier 5 (Sunwell)
+# TBC Tier 1 (Karazhan, Gruul, Magtheridon)
+CharacterServices.Cost.ProgressionTier.7 = 1000
+# TBC Tier 2 (SSC, TK)
+CharacterServices.Cost.ProgressionTier.8 = 1250
+# TBC Tier 3 (Hyjal, BT)
+CharacterServices.Cost.ProgressionTier.9 = 1500
+# TBC Tier 4 (ZA)
+CharacterServices.Cost.ProgressionTier.10 = 1600
+# TBC Tier 5 (Sunwell)
+CharacterServices.Cost.ProgressionTier.11 = 1700
 
 # WotLK progression costs
-CharacterServices.Cost.ProgressionTier.12 = 700  # WotLK Tier 1 (Naxx, EoE, OS)
-CharacterServices.Cost.ProgressionTier.13 = 750  # WotLK Tier 2 (Ulduar)
-CharacterServices.Cost.ProgressionTier.14 = 800  # WotLK Tier 3 (TotC)
-CharacterServices.Cost.ProgressionTier.15 = 850  # WotLK Tier 4 (ICC)
-CharacterServices.Cost.ProgressionTier.16 = 900  # WotLK Tier 5 (Ruby Sanctum)
+# WotLK Tier 1 (Naxx, EoE, OS)
+CharacterServices.Cost.ProgressionTier.12 = 2000
+# WotLK Tier 2 (Ulduar)
+CharacterServices.Cost.ProgressionTier.13 = 2500
+# WotLK Tier 3 (TotC)
+CharacterServices.Cost.ProgressionTier.14 = 3000
+# WotLK Tier 4 (ICC)
+CharacterServices.Cost.ProgressionTier.15 = 3500
+# WotLK Tier 5 (Ruby Sanctum)
+CharacterServices.Cost.ProgressionTier.16 = 4000
