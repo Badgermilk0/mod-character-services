@@ -1,5 +1,7 @@
 **Modified to work together with mod-individual-progression to purchase account based progression tiers, the mod is required for this version to work.**
-Branched from https://github.com/Zerkenn/mod-character-services
+
+Individual Progression Mod: https://github.com/ZhengPeiRu21/mod-individual-progression
+
 
 
 # Character Services Module
@@ -25,3 +27,4 @@ With a gm account goto the location you want to add the npc and use this command
 ### (Optional) Edit module configuration
 
 If you need to change the module configuration, go to your server configuration folder (e.g. **etc**), copy `character_services.conf.dist` to `character_services.conf` and edit it as you prefer.
+Branched from https://github.com/Zerkenn/mod-character-services
