@@ -96,18 +96,20 @@ CharacterServices.Cost.FactionChange = 250
 #        PROGRESSION_ONYXIA          = 2  (Onyxia's Lair)
 #        PROGRESSION_BLACKWING_LAIR  = 3  (Blackwing Lair)
 #        PROGRESSION_PRE_AQ          = 4  (Pre-Ahn'Qiraj content)
-#        PROGRESSION_AQ              = 5  (Ahn'Qiraj)
-#        PROGRESSION_NAXX40          = 6  (Naxxramas - Vanilla)
-#        PROGRESSION_TBC_TIER_1      = 7  (Karazhan, Gruul's Lair, Magtheridon's Lair)
-#        PROGRESSION_TBC_TIER_2      = 8  (Serpentshrine Cavern, Tempest Keep)
-#        PROGRESSION_TBC_TIER_3      = 9  (Hyjal Summit, Black Temple)
-#        PROGRESSION_TBC_TIER_4      = 10 (Zul'Aman)
-#        PROGRESSION_TBC_TIER_5      = 11 (Sunwell Plateau)
-#        PROGRESSION_WOTLK_TIER_1    = 12 (Naxxramas, Eye of Eternity, Obsidian Sanctum)
-#        PROGRESSION_WOTLK_TIER_2    = 13 (Ulduar)
-#        PROGRESSION_WOTLK_TIER_3    = 14 (Trial of the Crusader)
-#        PROGRESSION_WOTLK_TIER_4    = 15 (Icecrown Citadel)
-#        PROGRESSION_WOTLK_TIER_5    = 16 (Ruby Sanctum)
+#        PROGRESSION_AQ_WAR          = 5  (AQ War Effort)
+#        PROGRESSION_AQ              = 6  (Ahn'Qiraj)
+#        PROGRESSION_NAXX40          = 7  (Naxxramas - Vanilla)
+#        PROGRESSION_PRE_TBC         = 8  (Pre-TBC)
+#        PROGRESSION_TBC_TIER_1      = 9  (Karazhan, Gruul's Lair, Magtheridon's Lair)
+#        PROGRESSION_TBC_TIER_2      = 10 (Serpentshrine Cavern, Tempest Keep)
+#        PROGRESSION_TBC_TIER_3      = 11 (Hyjal Summit, Black Temple)
+#        PROGRESSION_TBC_TIER_4      = 12 (Zul'Aman)
+#        PROGRESSION_TBC_TIER_5      = 13 (Sunwell Plateau)
+#        PROGRESSION_WOTLK_TIER_1    = 14 (Naxxramas, Eye of Eternity, Obsidian Sanctum)
+#        PROGRESSION_WOTLK_TIER_2    = 15 (Ulduar)
+#        PROGRESSION_WOTLK_TIER_3    = 16 (Trial of the Crusader)
+#        PROGRESSION_WOTLK_TIER_4    = 17 (Icecrown Citadel)
+#        PROGRESSION_WOTLK_TIER_5    = 18 (Ruby Sanctum)
 #
 
 # Vanilla progression costs
@@ -119,31 +121,36 @@ CharacterServices.Cost.ProgressionTier.2 = 200
 CharacterServices.Cost.ProgressionTier.3 = 250
 # Pre-AQ
 CharacterServices.Cost.ProgressionTier.4 = 300
+# AQ War Effort
+CharacterServices.Cost.ProgressionTier.5 = 325
 # AQ
-CharacterServices.Cost.ProgressionTier.5 = 350
+CharacterServices.Cost.ProgressionTier.6 = 350
 # Naxx40
-CharacterServices.Cost.ProgressionTier.6 = 400
+CharacterServices.Cost.ProgressionTier.7 = 400
+
+# Pre-TBC
+CharacterServices.Cost.ProgressionTier.8 = 600
 
 # TBC progression costs
 # TBC Tier 1 (Karazhan, Gruul, Magtheridon)
-CharacterServices.Cost.ProgressionTier.7 = 1000
+CharacterServices.Cost.ProgressionTier.9 = 1000
 # TBC Tier 2 (SSC, TK)
-CharacterServices.Cost.ProgressionTier.8 = 1250
+CharacterServices.Cost.ProgressionTier.10 = 1250
 # TBC Tier 3 (Hyjal, BT)
-CharacterServices.Cost.ProgressionTier.9 = 1500
+CharacterServices.Cost.ProgressionTier.11 = 1500
 # TBC Tier 4 (ZA)
-CharacterServices.Cost.ProgressionTier.10 = 1600
+CharacterServices.Cost.ProgressionTier.12 = 1600
 # TBC Tier 5 (Sunwell)
-CharacterServices.Cost.ProgressionTier.11 = 1700
+CharacterServices.Cost.ProgressionTier.13 = 1700
 
 # WotLK progression costs
 # WotLK Tier 1 (Naxx, EoE, OS)
-CharacterServices.Cost.ProgressionTier.12 = 2000
+CharacterServices.Cost.ProgressionTier.14 = 2000
 # WotLK Tier 2 (Ulduar)
-CharacterServices.Cost.ProgressionTier.13 = 2500
+CharacterServices.Cost.ProgressionTier.15 = 2500
 # WotLK Tier 3 (TotC)
-CharacterServices.Cost.ProgressionTier.14 = 3000
+CharacterServices.Cost.ProgressionTier.16 = 3000
 # WotLK Tier 4 (ICC)
-CharacterServices.Cost.ProgressionTier.15 = 3500
+CharacterServices.Cost.ProgressionTier.17 = 3500
 # WotLK Tier 5 (Ruby Sanctum)
-CharacterServices.Cost.ProgressionTier.16 = 4000
+CharacterServices.Cost.ProgressionTier.18 = 4000
