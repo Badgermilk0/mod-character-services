@@ -204,10 +204,14 @@ class CharacterServices : public CreatureScript
           return "Interface/Icons/achievement_boss_nefarion";
         case PROGRESSION_PRE_AQ:
           return "Interface/Icons/inv_misc_qirajicrystal_05";
+        case PROGRESSION_AQ_WAR:
+          return "Interface/Icons/inv_misc_qirajicrystal_01";
         case PROGRESSION_AQ:
           return "Interface/Icons/achievement_boss_cthun";
         case PROGRESSION_NAXX40:
           return "Interface/Icons/achievement_boss_kelthuzad_01";
+        case PROGRESSION_PRE_TBC:
+          return "Interface/Icons/achievement_dungeon_karazhan";
         case PROGRESSION_TBC_TIER_1:
           return "Interface/Icons/achievement_boss_princemalchezaar_02";
         case PROGRESSION_TBC_TIER_2:
@@ -247,10 +251,14 @@ class CharacterServices : public CreatureScript
           return "Blackwing Lair";
         case PROGRESSION_PRE_AQ:
           return "Pre-AQ";
+        case PROGRESSION_AQ_WAR:
+          return "AQ War Effort";
         case PROGRESSION_AQ:
           return "Ahn'Qiraj";
         case PROGRESSION_NAXX40:
           return "Naxxramas (Vanilla)";
+        case PROGRESSION_PRE_TBC:
+          return "Pre-TBC";
         case PROGRESSION_TBC_TIER_1:
           return "TBC Tier 1";
         case PROGRESSION_TBC_TIER_2:
