@@ -27,4 +27,5 @@ With a gm account goto the location you want to add the npc and use this command
 ### (Optional) Edit module configuration
 
 If you need to change the module configuration, go to your server configuration folder (e.g. **etc**), copy `character_services.conf.dist` to `character_services.conf` and edit it as you prefer.
+
 Branched from https://github.com/Zerkenn/mod-character-services
