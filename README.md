@@ -1,4 +1,6 @@
-**Modified to work with mod-individual-progression, the mod is required for this version to work.**
+**Modified to work together with mod-individual-progression to purchase account based progression tiers, the mod is required for this version to work.**
+Branched from https://github.com/Zerkenn/mod-character-services
+
 
 # Character Services Module
 
