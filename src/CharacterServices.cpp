@@ -41,7 +41,7 @@ class CharacterServices : public CreatureScript
       // Add progression tier purchase option if enabled
       if (sConfigMgr->GetOption<bool>("CharacterServices.ProgressionTier.Enable", false))
       {
-        uint8 currentTier = player->GetPlayerSetting("mod-individual-progression", SETTING_PROGRESSION_STATE).value;
+        uint8 currentTier = sIndividualProgression->GetPlayerProgressionFromQuests(player);
         uint8 accountMaxTier = sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId());
         uint8 maxAllowedTier = sConfigMgr->GetOption<uint8>("CharacterServices.ProgressionTier.MaxApplicableTier", 0);
         
@@ -142,7 +142,7 @@ class CharacterServices : public CreatureScript
       if (!player || !player->GetSession())
           return;
           
-      uint8 currentTier = player->GetPlayerSetting("mod-individual-progression", SETTING_PROGRESSION_STATE).value;
+      uint8 currentTier = sIndividualProgression->GetPlayerProgressionFromQuests(player);
       uint8 accountMaxTier = sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId());
       uint8 maxAllowedTier = sConfigMgr->GetOption<uint8>("CharacterServices.ProgressionTier.MaxApplicableTier", 0);
       
