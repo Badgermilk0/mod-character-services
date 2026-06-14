@@ -179,8 +179,11 @@ class CharacterServices : public CreatureScript
       // Only allow progression to the next tier (preventing skipping tiers)
       if (newTier > currentTier + 1)
       {
-        ChatHandler(player->GetSession()).PSendSysMessage("You can only purchase the next progression tier.");
-        return;
+        if (newTier != 11)
+        {
+          ChatHandler(player->GetSession()).PSendSysMessage("You can only purchase the next progression tier.");
+          return;
+        }
       }
       
       // Progress to the new tier
@@ -216,10 +219,8 @@ class CharacterServices : public CreatureScript
           return "Interface/Icons/achievement_boss_princemalchezaar_02";
         case PROGRESSION_TBC_TIER_2:
           return "Interface/Icons/achievement_boss_kael'thassunstrider_01";
-        case PROGRESSION_TBC_TIER_3:
-          return "Interface/Icons/achievement_boss_illidan";
         case PROGRESSION_TBC_TIER_4:
-          return "Interface/Icons/achievement_boss_zuljin";
+          return "Interface/Icons/achievement_boss_illidan";
         case PROGRESSION_TBC_TIER_5:
           return "Interface/Icons/achievement_boss_kiljaeden";
         case PROGRESSION_WOTLK_TIER_1:
@@ -263,8 +264,6 @@ class CharacterServices : public CreatureScript
           return "TBC Tier 1";
         case PROGRESSION_TBC_TIER_2:
           return "TBC Tier 2";
-        case PROGRESSION_TBC_TIER_3:
-          return "TBC Tier 3";
         case PROGRESSION_TBC_TIER_4:
           return "TBC Tier 4";
         case PROGRESSION_TBC_TIER_5:
