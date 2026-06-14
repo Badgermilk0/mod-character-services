@@ -114,7 +114,7 @@ CharacterServices.Cost.FactionChange = 250
 # Vanilla progression costs
 
 # Buying a progression tier, completes that progression tier. 
-# Example: buying TBC Tier 5 lets you to go Northrend and level to 80.
+# Example: buying TBC Tier 5 lets you go to Northrend and level to 80.
 
 # Molten Core
 CharacterServices.Cost.ProgressionTier.1 = 150
