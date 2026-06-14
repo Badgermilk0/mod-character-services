@@ -103,7 +103,6 @@ CharacterServices.Cost.FactionChange = 250
 #        PROGRESSION_TBC_TIER_1      = 9  (Karazhan, Gruul's Lair, Magtheridon's Lair)
 #        PROGRESSION_TBC_TIER_2      = 10 (Serpentshrine Cavern, Tempest Keep)
 #        PROGRESSION_TBC_TIER_3      = 11 (Hyjal Summit, Black Temple)
-#        PROGRESSION_TBC_TIER_4      = 12 (Zul'Aman)
 #        PROGRESSION_TBC_TIER_5      = 13 (Sunwell Plateau)
 #        PROGRESSION_WOTLK_TIER_1    = 14 (Naxxramas, Eye of Eternity, Obsidian Sanctum)
 #        PROGRESSION_WOTLK_TIER_2    = 15 (Ulduar)
@@ -138,8 +137,6 @@ CharacterServices.Cost.ProgressionTier.9 = 1000
 CharacterServices.Cost.ProgressionTier.10 = 1250
 # TBC Tier 3 (Hyjal, BT)
 CharacterServices.Cost.ProgressionTier.11 = 1500
-# TBC Tier 4 (ZA)
-CharacterServices.Cost.ProgressionTier.12 = 1600
 # TBC Tier 5 (Sunwell)
 CharacterServices.Cost.ProgressionTier.13 = 1700
 
