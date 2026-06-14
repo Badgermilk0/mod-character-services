@@ -54,8 +54,13 @@ class CharacterServices : public CreatureScript
         // Only offer if there's an upgrade available
         if (accountMaxTier > currentTier)
         {
-          // Get the next progression tier name
-          uint8 nextTier = currentTier + 1;
+          uint8 nextTier = currentTier + 1; // Get the next progression tier name
+
+          if (currentTier == 10) // Special case for skipping TBC Tier 3 (Zul'Aman)
+          {
+            nextTier = 12; // Skip to TBC Tier 4
+          }
+            
           std::string nextTierName = GetProgressionTierName(nextTier);
           std::string tierIcon = GetTierIcon(nextTier);
           
@@ -179,8 +184,11 @@ class CharacterServices : public CreatureScript
       // Only allow progression to the next tier (preventing skipping tiers)
       if (newTier > currentTier + 1)
       {
-        ChatHandler(player->GetSession()).PSendSysMessage("You can only purchase the next progression tier.");
-        return;
+        if (newTier != 11)
+        {
+          ChatHandler(player->GetSession()).PSendSysMessage("You can only purchase the next progression tier.");
+          return;
+        }
       }
       
       // Progress to the new tier
@@ -216,10 +224,8 @@ class CharacterServices : public CreatureScript
           return "Interface/Icons/achievement_boss_princemalchezaar_02";
         case PROGRESSION_TBC_TIER_2:
           return "Interface/Icons/achievement_boss_kael'thassunstrider_01";
-        case PROGRESSION_TBC_TIER_3:
-          return "Interface/Icons/achievement_boss_illidan";
         case PROGRESSION_TBC_TIER_4:
-          return "Interface/Icons/achievement_boss_zuljin";
+          return "Interface/Icons/achievement_boss_illidan";
         case PROGRESSION_TBC_TIER_5:
           return "Interface/Icons/achievement_boss_kiljaeden";
         case PROGRESSION_WOTLK_TIER_1:
@@ -263,8 +269,6 @@ class CharacterServices : public CreatureScript
           return "TBC Tier 1";
         case PROGRESSION_TBC_TIER_2:
           return "TBC Tier 2";
-        case PROGRESSION_TBC_TIER_3:
-          return "TBC Tier 3";
         case PROGRESSION_TBC_TIER_4:
           return "TBC Tier 4";
         case PROGRESSION_TBC_TIER_5:
