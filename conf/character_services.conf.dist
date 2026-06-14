@@ -43,7 +43,7 @@
 #        Description: Set the maximum tier level that can be purchased via the service
 #                    (Set to 0 to allow all tiers to be purchased up to the account's max)
 #        Default:     0 - No limit (use account's maximum tier)
-#                     1-16 - Specific maximum tier limit
+#                     1-18 - Specific maximum tier limit
 #
 
 CharacterServices.Enable = 1
@@ -53,7 +53,7 @@ CharacterServices.AppearanceChange.Enable = 0
 CharacterServices.RaceChange.Enable = 0
 CharacterServices.FactionChange.Enable = 0
 CharacterServices.ProgressionTier.Enable = 1
-CharacterServices.ProgressionTier.MaxApplicableTier = 16
+CharacterServices.ProgressionTier.MaxApplicableTier = 18
 
 #
 #    CharacterServices.DynamicCost.Enable
@@ -102,7 +102,7 @@ CharacterServices.Cost.FactionChange = 250
 #        PROGRESSION_PRE_TBC         = 8  (Pre-TBC)
 #        PROGRESSION_TBC_TIER_1      = 9  (Karazhan, Gruul's Lair, Magtheridon's Lair)
 #        PROGRESSION_TBC_TIER_2      = 10 (Serpentshrine Cavern, Tempest Keep)
-#        PROGRESSION_TBC_TIER_3      = 11 (Hyjal Summit, Black Temple)
+#        PROGRESSION_TBC_TIER_3      = 12 (Hyjal Summit, Black Temple)
 #        PROGRESSION_TBC_TIER_5      = 13 (Sunwell Plateau)
 #        PROGRESSION_WOTLK_TIER_1    = 14 (Naxxramas, Eye of Eternity, Obsidian Sanctum)
 #        PROGRESSION_WOTLK_TIER_2    = 15 (Ulduar)
@@ -112,6 +112,10 @@ CharacterServices.Cost.FactionChange = 250
 #
 
 # Vanilla progression costs
+
+# Buying a progression tier, completes that progression tier. 
+# Example: buying TBC Tier 5 lets you to go Northrend and level to 80.
+
 # Molten Core
 CharacterServices.Cost.ProgressionTier.1 = 150
 # Onyxia
@@ -126,7 +130,6 @@ CharacterServices.Cost.ProgressionTier.5 = 325
 CharacterServices.Cost.ProgressionTier.6 = 350
 # Naxx40
 CharacterServices.Cost.ProgressionTier.7 = 400
-
 # Pre-TBC
 CharacterServices.Cost.ProgressionTier.8 = 600
 
@@ -136,7 +139,7 @@ CharacterServices.Cost.ProgressionTier.9 = 1000
 # TBC Tier 2 (SSC, TK)
 CharacterServices.Cost.ProgressionTier.10 = 1250
 # TBC Tier 3 (Hyjal, BT)
-CharacterServices.Cost.ProgressionTier.11 = 1500
+CharacterServices.Cost.ProgressionTier.12 = 1500
 # TBC Tier 5 (Sunwell)
 CharacterServices.Cost.ProgressionTier.13 = 1700
 
