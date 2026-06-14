@@ -54,8 +54,13 @@ class CharacterServices : public CreatureScript
         // Only offer if there's an upgrade available
         if (accountMaxTier > currentTier)
         {
-          // Get the next progression tier name
-          uint8 nextTier = currentTier + 1;
+          uint8 nextTier = currentTier + 1; // Get the next progression tier name
+
+          if (currentTier == 10) // Special case for skipping TBC Tier 3 (Zul'Aman)
+          {
+            nextTier = 12; // Skip to TBC Tier 4
+          }
+            
           std::string nextTierName = GetProgressionTierName(nextTier);
           std::string tierIcon = GetTierIcon(nextTier);
           
