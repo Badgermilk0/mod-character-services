@@ -42,8 +42,10 @@
 #    CharacterServices.ProgressionTier.MaxApplicableTier
 #        Description: Set the maximum tier level that can be purchased via the service
 #                    (Set to 0 to allow all tiers to be purchased up to the account's max)
+#                    NOTE: do NOT set this to 11 - that tier (TBC Tier 3 / Zul'Aman)
+#                    is disabled in mod-individual-progression. Use 12 to cap at TBC Tier 4.
 #        Default:     0 - No limit (use account's maximum tier)
-#                     1-18 - Specific maximum tier limit
+#                     1-18 - Specific maximum tier limit (excluding 11)
 #
 
 CharacterServices.Enable = 1
@@ -53,11 +55,14 @@ CharacterServices.AppearanceChange.Enable = 0
 CharacterServices.RaceChange.Enable = 0
 CharacterServices.FactionChange.Enable = 0
 CharacterServices.ProgressionTier.Enable = 1
-CharacterServices.ProgressionTier.MaxApplicableTier = 18
+CharacterServices.ProgressionTier.MaxApplicableTier = 0
 
 #
 #    CharacterServices.DynamicCost.Enable
-#        Description: Enables scaling cost for services based on the player's level (player level / 80) * cost
+#        Description: Enables scaling cost based on the player's level: (player level / 80) * cost
+#                    NOTE: this applies ONLY to the name/appearance/race/faction services
+#                    below. Progression tier costs are always the flat per-tier value
+#                    configured in CharacterServices.Cost.ProgressionTier.X .
 #        Default:     1 - Enabled
 #                     0 - Disabled
 #
@@ -90,25 +95,28 @@ CharacterServices.Cost.FactionChange = 250
 #        Description: The cost to purchase specific progression tier X in gold
 #                    Note: These costs are per tier, not cumulative
 #
-#    Progression Tier Reference:
-#        PROGRESSION_START           = 0  (Starting state - no purchases available)
-#        PROGRESSION_MOLTEN_CORE     = 1  (Molten Core)
-#        PROGRESSION_ONYXIA          = 2  (Onyxia's Lair)
-#        PROGRESSION_BLACKWING_LAIR  = 3  (Blackwing Lair)
-#        PROGRESSION_PRE_AQ          = 4  (Pre-Ahn'Qiraj content)
-#        PROGRESSION_AQ_WAR          = 5  (AQ War Effort)
-#        PROGRESSION_AQ              = 6  (Ahn'Qiraj)
-#        PROGRESSION_NAXX40          = 7  (Naxxramas - Vanilla)
-#        PROGRESSION_PRE_TBC         = 8  (Pre-TBC)
-#        PROGRESSION_TBC_TIER_1      = 9  (Karazhan, Gruul's Lair, Magtheridon's Lair)
-#        PROGRESSION_TBC_TIER_2      = 10 (Serpentshrine Cavern, Tempest Keep)
-#        PROGRESSION_TBC_TIER_3      = 12 (Hyjal Summit, Black Temple)
-#        PROGRESSION_TBC_TIER_5      = 13 (Sunwell Plateau)
-#        PROGRESSION_WOTLK_TIER_1    = 14 (Naxxramas, Eye of Eternity, Obsidian Sanctum)
-#        PROGRESSION_WOTLK_TIER_2    = 15 (Ulduar)
-#        PROGRESSION_WOTLK_TIER_3    = 16 (Trial of the Crusader)
-#        PROGRESSION_WOTLK_TIER_4    = 17 (Icecrown Citadel)
-#        PROGRESSION_WOTLK_TIER_5    = 18 (Ruby Sanctum)
+#    Progression Tier Reference (value + name exactly as defined by
+#    mod-individual-progression). Buying a tier marks that tier's content
+#    COMPLETE on the character, which unlocks the following bracket:
+#        0  PROGRESSION_START          (Starting state - nothing to purchase)
+#        1  PROGRESSION_MOLTEN_CORE    (Molten Core)
+#        2  PROGRESSION_ONYXIA         (Onyxia's Lair)
+#        3  PROGRESSION_BLACKWING_LAIR (Blackwing Lair)
+#        4  PROGRESSION_PRE_AQ         (Pre-Ahn'Qiraj / AQ gates quest line)
+#        5  PROGRESSION_AQ_WAR         (AQ War Effort)
+#        6  PROGRESSION_AQ             (Ahn'Qiraj)
+#        7  PROGRESSION_NAXX40         (Naxxramas - Vanilla)
+#        8  PROGRESSION_PRE_TBC        (Pre-TBC / Dark Portal - unlocks Karazhan, Gruul, Magtheridon)
+#        9  PROGRESSION_TBC_TIER_1     (Karazhan, Gruul's Lair, Magtheridon's Lair)
+#        10 PROGRESSION_TBC_TIER_2     (Serpentshrine Cavern, Tempest Keep)
+#        11 PROGRESSION_TBC_TIER_3     (Zul'Aman) - DISABLED in IP: no cost entry, cannot be purchased
+#        12 PROGRESSION_TBC_TIER_4     (Hyjal Summit, Black Temple)
+#        13 PROGRESSION_TBC_TIER_5     (Sunwell Plateau - unlocks Northrend / WotLK leveling)
+#        14 PROGRESSION_WOTLK_TIER_1   (Naxxramas, Eye of Eternity, Obsidian Sanctum)
+#        15 PROGRESSION_WOTLK_TIER_2   (Ulduar)
+#        16 PROGRESSION_WOTLK_TIER_3   (Trial of the Crusader)
+#        17 PROGRESSION_WOTLK_TIER_4   (Icecrown Citadel)
+#        18 PROGRESSION_WOTLK_TIER_5   (Ruby Sanctum)
 #
 
 # Vanilla progression costs
@@ -138,7 +146,8 @@ CharacterServices.Cost.ProgressionTier.8 = 600
 CharacterServices.Cost.ProgressionTier.9 = 1000
 # TBC Tier 2 (SSC, TK)
 CharacterServices.Cost.ProgressionTier.10 = 1250
-# TBC Tier 3 (Hyjal, BT)
+# (Tier 11 / TBC Tier 3 / Zul'Aman is disabled in IP - intentionally no entry)
+# TBC Tier 4 (Hyjal, BT)
 CharacterServices.Cost.ProgressionTier.12 = 1500
 # TBC Tier 5 (Sunwell)
 CharacterServices.Cost.ProgressionTier.13 = 1700
