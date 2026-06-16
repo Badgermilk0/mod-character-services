@@ -44,36 +44,28 @@ class CharacterServices : public CreatureScript
         uint8 currentTier = sIndividualProgression->GetPlayerProgressionFromQuests(player);
         uint8 accountMaxTier = sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId());
         uint8 maxAllowedTier = sConfigMgr->GetOption<uint8>("CharacterServices.ProgressionTier.MaxApplicableTier", 0);
-        
-        // If MaxApplicableTier is set (non-zero), use it as a cap
-        if (maxAllowedTier > 0 && accountMaxTier > maxAllowedTier)
-        {
-          accountMaxTier = maxAllowedTier;
-        }
-        
-        // Only offer if there's an upgrade available
-        if (accountMaxTier > currentTier)
-        {
-          uint8 nextTier = currentTier + 1; // Get the next progression tier name
 
-          if (currentTier == 10) // Special case for skipping TBC Tier 3 (Zul'Aman)
-          {
-            nextTier = 12; // Skip to TBC Tier 4
-          }
-            
+        // If MaxApplicableTier is set (non-zero), use it as a cap on the account's max tier
+        if (maxAllowedTier > 0 && accountMaxTier > maxAllowedTier)
+          accountMaxTier = maxAllowedTier;
+
+        uint8 nextTier = GetNextProgressionTier(currentTier);
+
+        // Only offer if the account has unlocked the next tier and the player is not at max progression
+        if (currentTier < PROGRESSION_WOTLK_TIER_5 && nextTier <= accountMaxTier)
+        {
           std::string nextTierName = GetProgressionTierName(nextTier);
           std::string tierIcon = GetTierIcon(nextTier);
-          
-          AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, 
-            "|T" + tierIcon + ":50:50|tProgress to " + nextTierName, 
+
+          AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1,
+            "|T" + tierIcon + ":50:50|tProgress to " + nextTierName,
             GOSSIP_SENDER_MAIN, 100 + nextTier, // Use 100 + tier as the action ID
-            "Purchase progression to: " + nextTierName, 
-            GetProgressionTierCost(player, nextTier), false);
+            "Purchase progression to: " + nextTierName,
+            GetProgressionTierCost(nextTier), false);
         }
-        else if (currentTier < PROGRESSION_WOTLK_TIER_5) // Not at max progression
+        else if (currentTier < PROGRESSION_WOTLK_TIER_5) // Not at max, but nothing unlocked to buy yet
         {
-          // Inform player they need to progress on another character first
-          ChatHandler(player->GetSession()).PSendSysMessage("You must first complete this progression tier on another character before you can purchase it here.");
+          ChatHandler(player->GetSession()).PSendSysMessage("Your account has not unlocked a higher progression tier yet. Progress further on another character to unlock it here.");
         }
       }
 
@@ -88,35 +80,56 @@ class CharacterServices : public CreatureScript
           return false;
           
       ClearGossipMenuFor(player);
-      
+
       // Handle progression tier purchases (action IDs 100+)
       if (action >= 100)
       {
+        if (!sConfigMgr->GetOption<bool>("CharacterServices.ProgressionTier.Enable", false))
+        {
+          CloseGossipMenuFor(player);
+          return false;
+        }
+
         uint8 tierToPurchase = action - 100;
-        uint32 cost = GetProgressionTierCost(player, tierToPurchase);
-        
+
+        // Validate the purchase before taking any money so a failed service never costs gold
+        if (!CanPurchaseProgressionTier(player, tierToPurchase))
+        {
+          CloseGossipMenuFor(player);
+          return false;
+        }
+
+        uint32 cost = GetProgressionTierCost(tierToPurchase);
         if (!player->HasEnoughMoney(cost))
         {
           ChatHandler(player->GetSession()).PSendSysMessage("You do not have enough money for this service.");
           CloseGossipMenuFor(player);
           return false;
         }
-        
+
         player->ModifyMoney(-cost);
-        ProcessProgressionTierPurchase(player, tierToPurchase);
+        ApplyProgressionTierPurchase(player, tierToPurchase);
         CloseGossipMenuFor(player);
         return true;
       }
-      
-      // Handle standard services (action IDs 1-4)
-      if (!player->HasEnoughMoney(GetServiceCost(player, action)))
+
+      // Handle standard services (action IDs 1-4). Re-check the service is enabled
+      // (and the action is valid) so a crafted gossip select cannot bypass the menu.
+      if (!IsStandardServiceEnabled(action))
+      {
+        CloseGossipMenuFor(player);
+        return false;
+      }
+
+      uint32 cost = GetServiceCost(player, action);
+      if (!player->HasEnoughMoney(cost))
       {
         ChatHandler(player->GetSession()).PSendSysMessage("You do not have enough money for this service.");
         CloseGossipMenuFor(player);
         return false;
       }
 
-      player->ModifyMoney(-GetServiceCost(player, action));
+      player->ModifyMoney(-cost);
 
       switch (action)
       {
@@ -142,60 +155,87 @@ class CharacterServices : public CreatureScript
       return true;
     }
 
-    void ProcessProgressionTierPurchase(Player* player, uint8 newTier)
+    // Returns whether a standard service action (1-4) is enabled in the config.
+    // Also acts as the valid-action guard: anything outside 1-4 returns false.
+    bool IsStandardServiceEnabled(uint32 service)
+    {
+      switch (service)
+      {
+        case 1:
+          return sConfigMgr->GetOption<bool>("CharacterServices.NameChange.Enable", false);
+        case 2:
+          return sConfigMgr->GetOption<bool>("CharacterServices.AppearanceChange.Enable", false);
+        case 3:
+          return sConfigMgr->GetOption<bool>("CharacterServices.RaceChange.Enable", false);
+        case 4:
+          return sConfigMgr->GetOption<bool>("CharacterServices.FactionChange.Enable", false);
+        default:
+          return false;
+      }
+    }
+
+    // mod-individual-progression disables PROGRESSION_TBC_TIER_3 (value 11,
+    // Zul'Aman), so the valid tier after PROGRESSION_TBC_TIER_2 (10) is
+    // PROGRESSION_TBC_TIER_4 (12). Centralised here so the menu offer and the
+    // purchase validation always agree on the single skipped tier.
+    uint8 GetNextProgressionTier(uint8 currentTier)
+    {
+      if (currentTier == PROGRESSION_TBC_TIER_2)
+        return PROGRESSION_TBC_TIER_4;
+      return currentTier + 1;
+    }
+
+    // Validates a progression tier purchase without taking money or changing
+    // state. Sends the player an explanatory message on each failure.
+    bool CanPurchaseProgressionTier(Player* player, uint8 newTier)
     {
       if (!player || !player->GetSession())
-          return;
-          
+          return false;
+
       uint8 currentTier = sIndividualProgression->GetPlayerProgressionFromQuests(player);
       uint8 accountMaxTier = sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId());
       uint8 maxAllowedTier = sConfigMgr->GetOption<uint8>("CharacterServices.ProgressionTier.MaxApplicableTier", 0);
-      
-      // Check against max allowed tier if configured
+
+      // Cap the account's max tier by the configured maximum, if any
       if (maxAllowedTier > 0)
       {
-        // Cap the accountMaxTier by the configured maximum
         if (accountMaxTier > maxAllowedTier)
-        {
-            accountMaxTier = maxAllowedTier;
-        }
-        
-        // Also ensure we don't let players purchase beyond the max allowed tier
+          accountMaxTier = maxAllowedTier;
+
         if (newTier > maxAllowedTier)
         {
-            ChatHandler(player->GetSession()).PSendSysMessage("This progression tier is not available for purchase.");
-            return;
+          ChatHandler(player->GetSession()).PSendSysMessage("This progression tier is not available for purchase.");
+          return false;
         }
       }
-      
-      // Safety checks
-      if (newTier <= currentTier)
+
+      // Only the immediate next tier may be purchased. This single check also
+      // rejects already-owned tiers and any attempt to skip ahead, and it
+      // correctly allows the 10 -> 12 step over the disabled tier 11.
+      if (newTier != GetNextProgressionTier(currentTier))
       {
-        ChatHandler(player->GetSession()).PSendSysMessage("You are already at or beyond this progression tier.");
-        return;
+        ChatHandler(player->GetSession()).PSendSysMessage("You can only purchase the next progression tier.");
+        return false;
       }
-      
+
+      // Cannot progress beyond what the account has unlocked elsewhere
       if (newTier > accountMaxTier)
       {
         ChatHandler(player->GetSession()).PSendSysMessage("You cannot progress beyond your account's maximum tier.");
-        return;
+        return false;
       }
-      
-      // Only allow progression to the next tier (preventing skipping tiers)
-      if (newTier > currentTier + 1)
-      {
-        if (newTier != 11)
-        {
-          ChatHandler(player->GetSession()).PSendSysMessage("You can only purchase the next progression tier.");
-          return;
-        }
-      }
-      
-      // Progress to the new tier
+
+      return true;
+    }
+
+    // Applies the progression tier and refreshes the player's phasing/adjustments
+    // so the change takes effect without requiring a relog (mirrors `.ip set`).
+    void ApplyProgressionTierPurchase(Player* player, uint8 newTier)
+    {
       sIndividualProgression->ForceUpdateProgressionState(player, static_cast<ProgressionState>(newTier));
-      
-      std::string tierName = GetProgressionTierName(newTier);
-      ChatHandler(player->GetSession()).PSendSysMessage("You have successfully progressed to {}.", tierName);
+      sIndividualProgression->checkIPPhasing(player, player->GetAreaId());
+
+      ChatHandler(player->GetSession()).PSendSysMessage("You have successfully progressed to {}.", GetProgressionTierName(newTier));
     }
 
     std::string GetTierIcon(uint8 tier)
@@ -288,18 +328,15 @@ class CharacterServices : public CreatureScript
       }
     }
 
-    uint32 GetProgressionTierCost(Player* player, uint8 tier)
+    // Progression tiers use a static, configurable per-tier cost. DynamicCost
+    // scaling intentionally does not apply here (it only affects the standard
+    // name/appearance/race/faction services via GetServiceCost).
+    uint32 GetProgressionTierCost(uint8 tier)
     {
-      bool dynamicCostEnabled = sConfigMgr->GetOption<bool>("CharacterServices.DynamicCost.Enable", false);
-      double playerLevel = player->GetLevel();
-      double dynamicRatio = (playerLevel / 80);
-      
       std::string configOption = "CharacterServices.Cost.ProgressionTier." + std::to_string(tier);
       // Default cost is tier-dependent; higher tiers cost more
       uint32 defaultCost = 100 + (tier * 50);
-      uint32 tierCost = sConfigMgr->GetOption<uint32>(configOption, defaultCost) * 10000;
-      
-      return dynamicCostEnabled ? dynamicRatio * tierCost : tierCost;
+      return sConfigMgr->GetOption<uint32>(configOption, defaultCost) * 10000;
     }
 
     uint32 GetServiceCost(Player* player, uint8 service)
