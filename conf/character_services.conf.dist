@@ -47,6 +47,15 @@
 #        Default:     0 - No limit (use account's maximum tier)
 #                     1-18 - Specific maximum tier limit (excluding 11)
 #
+#    CharacterServices.ProgressionTier.RequireAccountUnlock
+#        Description: Require the tier to already be unlocked on the account (by some
+#                    character completing it normally) before it can be purchased here.
+#                    Set to 0 to let any character buy progression up to MaxApplicableTier
+#                    (or the top tier if MaxApplicableTier is 0) without prior unlock.
+#                    Tiers must still be purchased one at a time, in order.
+#        Default:     1 - Enabled (require account to have unlocked the tier)
+#                     0 - Disabled (no account-unlock requirement)
+#
 
 CharacterServices.Enable = 1
 
@@ -56,6 +65,7 @@ CharacterServices.RaceChange.Enable = 0
 CharacterServices.FactionChange.Enable = 0
 CharacterServices.ProgressionTier.Enable = 1
 CharacterServices.ProgressionTier.MaxApplicableTier = 0
+CharacterServices.ProgressionTier.RequireAccountUnlock = 1
 
 #
 #    CharacterServices.DynamicCost.Enable
