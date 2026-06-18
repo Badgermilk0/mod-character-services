@@ -42,8 +42,15 @@ class CharacterServices : public CreatureScript
       if (sConfigMgr->GetOption<bool>("CharacterServices.ProgressionTier.Enable", false))
       {
         uint8 currentTier = sIndividualProgression->GetPlayerProgressionFromQuests(player);
-        uint8 accountMaxTier = sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId());
         uint8 maxAllowedTier = sConfigMgr->GetOption<uint8>("CharacterServices.ProgressionTier.MaxApplicableTier", 0);
+        bool requireAccountUnlock = sConfigMgr->GetOption<bool>("CharacterServices.ProgressionTier.RequireAccountUnlock", true);
+
+        // When RequireAccountUnlock is true (default), the ceiling is the account's
+        // highest achieved tier. When false, any character may buy up to the top tier
+        // without another character having unlocked it first.
+        uint8 accountMaxTier = requireAccountUnlock
+          ? sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId())
+          : PROGRESSION_WOTLK_TIER_5;
 
         // If MaxApplicableTier is set (non-zero), use it as a cap on the account's max tier
         if (maxAllowedTier > 0 && accountMaxTier > maxAllowedTier)
@@ -193,8 +200,14 @@ class CharacterServices : public CreatureScript
           return false;
 
       uint8 currentTier = sIndividualProgression->GetPlayerProgressionFromQuests(player);
-      uint8 accountMaxTier = sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId());
       uint8 maxAllowedTier = sConfigMgr->GetOption<uint8>("CharacterServices.ProgressionTier.MaxApplicableTier", 0);
+      bool requireAccountUnlock = sConfigMgr->GetOption<bool>("CharacterServices.ProgressionTier.RequireAccountUnlock", true);
+
+      // When RequireAccountUnlock is true (default), cap purchases at the account's
+      // highest achieved tier. When false, the only ceiling is MaxApplicableTier (below).
+      uint8 accountMaxTier = requireAccountUnlock
+        ? sIndividualProgression->GetAccountProgression(player->GetSession()->GetAccountId())
+        : PROGRESSION_WOTLK_TIER_5;
 
       // Cap the account's max tier by the configured maximum, if any
       if (maxAllowedTier > 0)
